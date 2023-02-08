@@ -21,13 +21,13 @@ mp_pose =mp.solutions.pose
 pose = mp_pose.Pose()
 
 def make_landmark(results):
-    c_lm = []
+    lm = []
     for id, lm in enumerate(results.pose_landmarks.landmark):
-        c_lm.append(lm.x)
-        c_lm.append(lm.y)
-        c_lm.append(lm.z)
-        c_lm.append(lm.visibility)
-    return c_lm
+        lm.append(lm.x)
+        lm.append(lm.y)
+        lm.append(lm.z)
+        lm.append(lm.visibility)
+    return lm
 
 def detect(model, lm_lis):
     global label
