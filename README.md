@@ -28,7 +28,7 @@ _________________________________________________________________
 Total params: 97,353
 Trainable params: 97,353
 Non-trainable params: 0
-
+# Result
 _________________________________________________________________
-#Result
+
 ![image](https://user-images.githubusercontent.com/113814417/218502630-83956d10-4394-41d4-95cb-bb48f1bb5745.png)
