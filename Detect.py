@@ -14,8 +14,8 @@ model = tf.keras.models.load_model("model.h5")
 yolo_model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')	
 n_frame = 10
 label = "  "
-label2 = "Tuan"
-label1 = "Hieu"
+label2 = "People_1"
+label1 = "People_2"
 mp_drawing = mp.solutions.drawing_utils
 mp_pose =mp.solutions.pose
 pose = mp_pose.Pose()
@@ -28,7 +28,6 @@ def landmark(results):
         lm.append(lm.z)
         lm.append(lm.visibility)
     return lm
-
 def detect(model, lm_lis):
     global label
     lm_lis = np.array(lm_lis)
@@ -36,14 +35,12 @@ def detect(model, lm_lis):
     results = model.predict(lm_lis)  
     print(results)
     if results[0][1] == max(results[0]):
-        label = "giang tay"
+        label = "Rasing hand"
     if results[0][0] == max(results[0]):
-        label = "ha tay"
+        label = "Down Hand"
     if results[0][2] == max(results[0]):
-        label = "ngoi"
+        label = "Sitting"
     return label
-
-
 while cap.isOpened():    
     ret, frame = cap.read()
     if not ret:
@@ -70,14 +67,12 @@ while cap.isOpened():
             if clas == 0:
                 lm_list1.append(c_lm)
                 if len(lm_list1)== n_frame:
-                    
                     detect(model, lm_list1)
                     label1 = label
                     lm_list1= []
                 image = cv2.putText(image,label1, org, font, fontScale, color, thickness, cv2.LINE_AA)
             elif clas == 1:
                 lm_list2.append(c_lm)
-          
                 if len(lm_list2)== n_frame :
                     detect(model, lm_list2)
                     label2 = label
@@ -87,7 +82,7 @@ while cap.isOpened():
                                 mp_drawing.DrawingSpec(color=(245,117,66)), 
                                 mp_drawing.DrawingSpec(color=(245,66,230)) 
                                   )
-        cv2.imshow('NguyenThanhTung ',image)
+        cv2.imshow('Image showing',image)
         cv2.waitKey(1)
 
    
